@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "dvt_elevator_challenge_solution/1.0.0": {
+        "runtime": {
+          "dvt_elevator_challenge_solution.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "dvt_elevator_challenge_solution/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
