@@ -5,18 +5,19 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="dvt_elevator_challenge_solution/Elevator.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="dvt_elevator_challenge_solution/GoodsElevator.cs">
     <Files>
       <File FileName="dvt_elevator_challenge_solution/Program.cs" Line="4" Column="1" />
-      <File FileName="dvt_elevator_challenge_solution/Elevator.cs" Line="47" Column="18" />
-      <File FileName="dvt_elevator_challenge_solution/ElevatorDirection.cs" Line="8" Column="13" />
+      <File FileName="dvt_elevator_challenge_solution/Elevator.cs" Line="44" Column="36" />
+      <File FileName="dvt_elevator_challenge_solution/PassengerElevator.cs" Line="30" Column="10" />
+      <File FileName="dvt_elevator_challenge_solution/GoodsElevator.cs" Line="9" Column="65" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="dvt_elevator_challenge_solution">
             <Node name="dvt_elevator_challenge_solution">
-              <Node name="Elevator.cs" selected="True" />
+              <Node name="GoodsElevator.cs" selected="True" />
             </Node>
           </Node>
         </State>
