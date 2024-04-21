@@ -46,39 +46,50 @@ namespace dvt_elevator_challenge_solution
             }
         }
 
-        private Elevator FindNearestElevator(List<Elevator> elevators, int requestedFloor, Type elevatorType, double goodsWeight, int passengerCount, Elevator nearestElevator, int shortestDistance)
+        private Elevator FindNearestElevator(int requestedFloor, Type elevatorType, double goodsWeight, int passengerCount)
         {
-            // Base case: If there are no more elevators to consider, return the nearest elevator found so far
-            if (elevators.Count == 0)
+            // Filter elevators based on the specified elevator type
+            List<Elevator> filteredElevators = elevators.FindAll(e => e.GetType() == elevatorType);
+
+            Elevator nearestElevator = null;
+            int shortestDistance = int.MaxValue;
+
+            foreach (var elevator in filteredElevators)
             {
-                return nearestElevator;
-            }
-
-            var elevator = elevators[0];
-
-            int distance = Math.Abs(elevator.CurrentFloor - requestedFloor);
-
-            if (!elevator.IsMoving || elevator.Direction == ElevatorDirection.Stationary)
-            {
-                // Check if the elevator can accommodate passengers or goods based on the type
-                bool canAccommodate = (elevator is PassengerElevator && ((PassengerElevator)elevator).PassengerCount + passengerCount <= ((PassengerElevator)elevator).MaxPassengerLimit) ||
-                                      (elevator is GoodsElevator && ((GoodsElevator)elevator).WeightCount + goodsWeight <= ((GoodsElevator)elevator).maxWeightLimitInKgs);
-
-                if (canAccommodate)
+                int distance = Math.Abs(elevator.CurrentFloor - requestedFloor);
+                if (!elevator.IsMoving || elevator.Direction == ElevatorDirection.Stationary)
                 {
-                    // Update nearest elevator if it's closer to the requested floor
-                    if (distance < shortestDistance)
+                    if (elevator is PassengerElevator)
                     {
-                        nearestElevator = elevator;
-                        shortestDistance = distance;
+                        PassengerElevator passengerElevator = (PassengerElevator)elevator;
+                        if (passengerElevator.PassengerCount + passengerCount <= passengerElevator.MaxPassengerLimit)
+                        {
+                            // Update nearest elevator if it's closer to the requested floor
+                            if (distance < shortestDistance)
+                            {
+                                shortestDistance = distance;
+                                nearestElevator = elevator;
+                            }
+                        }
+                    }
+                    else if (elevator is GoodsElevator)
+                    {
+                        GoodsElevator goodsElevator = (GoodsElevator)elevator;
+                        if (goodsElevator.WeightCount + goodsWeight <= goodsElevator.maxWeightLimitInKgs)
+                        {
+                            // Update nearest elevator if it's closer to the requested floor
+                            if (distance < shortestDistance)
+                            {
+                                shortestDistance = distance;
+                                nearestElevator = elevator;
+                            }
+                        }
                     }
                 }
             }
 
-            // Move to the next elevator in the list and recursively call FindNearestElevator
-            return FindNearestElevator(elevators.GetRange(1, elevators.Count - 1), requestedFloor, elevatorType, goodsWeight, passengerCount, nearestElevator, shortestDistance);
+            return nearestElevator;
         }
-
 
 
     }
