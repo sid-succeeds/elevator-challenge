@@ -91,7 +91,46 @@ namespace dvt_elevator_challenge_solution
             return nearestElevator;
         }
 
+        public void CallElevator(int requestedFloor, Type elevatorType)
+        {
+            // Prepare variables to capture user input
+            int passengerCount = 0;
+            double goodsWeight = 0;
 
+            if (elevatorType == typeof(PassengerElevator))
+            {
+                Console.Write("Enter the number of passengers: ");
+                int.TryParse(Console.ReadLine(), out passengerCount);
+            }
+            else if (elevatorType == typeof(GoodsElevator))
+            {
+                Console.Write("Enter the goods weight (kg): ");
+                double.TryParse(Console.ReadLine(), out goodsWeight);
+            }
+
+            // Find the nearest elevator of the specified type
+            Elevator nearestElevator = FindNearestElevator(requestedFloor, elevatorType, goodsWeight, passengerCount);
+
+            // Move the nearest elevator to the requested floor and handle loading
+            if (nearestElevator != null)
+            {
+                nearestElevator.MoveToFloor(requestedFloor, nearestElevator.speed);
+                if (elevatorType == typeof(PassengerElevator))
+                {
+                    Console.WriteLine($"Moving passenger elevator {nearestElevator.ElevatorID} to floor {requestedFloor}");
+                }
+                else if (elevatorType == typeof(GoodsElevator))
+                {
+                    Console.WriteLine($"Moving goods elevator {nearestElevator.ElevatorID} to floor {requestedFloor}");
+                }
+
+                Load(nearestElevator, passengerCount, goodsWeight);
+            }
+            else
+            {
+                Console.WriteLine("No available elevator found.");
+            }
+        }
     }
 }
 
