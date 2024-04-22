@@ -1,20 +1,27 @@
 ﻿using System;
 namespace dvt_elevator_challenge_solution
 {
-    public class PassengerElevator : Elevator
+    public class PassengerElevator : IElevator
     {
         public int PassengerCount { get; protected set; }
         public int MaxPassengerLimit { get; }
 
-        public PassengerElevator(int maxPassengerLimit, int elevatorID) : base(elevatorID)
+        public int CurrentFloor { get; set; }
+        public ElevatorDirection Direction { get; set; }
+        public bool IsMoving { get; set; }
+        public int ElevatorID { get; }
+        public int speed { get; set; }
+
+        public PassengerElevator(int maxPassengerLimit, int elevatorID)
         {
             MaxPassengerLimit = maxPassengerLimit;
             PassengerCount = 0;
-            speed = 100;
+            speed = 100; // Setting a default speed for PassengerElevator
         }
 
-        public override void Load(int passengerCount)
+        public void Load(int passengerCount)
         {
+            // Only load passengers onto the elevator if the count does not exceed the maximum passenger limit
             if (PassengerCount + passengerCount <= MaxPassengerLimit)
             {
                 Console.WriteLine($"Loading {passengerCount} passengers into passenger elevator {ElevatorID}");
@@ -26,7 +33,7 @@ namespace dvt_elevator_challenge_solution
             }
         }
 
-        public override void Unload()
+        public void Unload()
         {
             // Implementation specific to passenger elevators
             Console.WriteLine($"Unloading {PassengerCount} passengers from passenger elevator {ElevatorID}");
@@ -34,7 +41,7 @@ namespace dvt_elevator_challenge_solution
             Console.WriteLine("Unloaded");
         }
 
-        public override void DisplayStatus()
+        public void DisplayStatus()
         {
             Console.WriteLine($"Elevator ID: {ElevatorID}, Current Floor: {CurrentFloor}, " +
                               $"Direction: {Direction}, Passenger Count: {PassengerCount}, Max Passenger Limit: {MaxPassengerLimit}");

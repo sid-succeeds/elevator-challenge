@@ -1,22 +1,26 @@
 ﻿using System;
 namespace dvt_elevator_challenge_solution
 {
-    public class GoodsElevator : Elevator
+    public class GoodsElevator : IElevator
     {
         public double WeightCount { get; protected set; }
         public double maxWeightLimitInKgs;
 
-        public GoodsElevator(double maxWeightLimitInKgs, int elevatorID) : base(elevatorID)
+        public int CurrentFloor { get; set; }
+        public ElevatorDirection Direction { get; set; }
+        public bool IsMoving { get; set; }
+        public int ElevatorID { get; }
+        public int speed { get; set; }
+
+        public GoodsElevator(double maxWeightLimitInKgs, int elevatorID)
         {
             this.maxWeightLimitInKgs = maxWeightLimitInKgs;
-            this.WeightCount = 0;
-            speed = 50;
-
+            this.ElevatorID = elevatorID;
+            this.speed = 50; // Setting a default speed for GoodsElevator
         }
 
-        public override void Load(double weightInKgs)
+        public void Load(double weightInKgs)
         {
-            // Implementation specific to goods elevators
             // Only load goods onto the elevator if the weight does not exceed the maximum weight limit
             if (weightInKgs <= maxWeightLimitInKgs)
             {
@@ -29,7 +33,7 @@ namespace dvt_elevator_challenge_solution
             }
         }
 
-        public override void Unload()
+        public void Unload()
         {
             // Implementation specific to goods elevators
             Console.WriteLine($"Unloading {WeightCount} kilogram units of goods from the goods elevator {ElevatorID}");
@@ -37,7 +41,7 @@ namespace dvt_elevator_challenge_solution
             Console.WriteLine("Unloaded");
         }
 
-        public override void DisplayStatus()
+        public void DisplayStatus()
         {
             Console.WriteLine($"Elevator ID: {ElevatorID}, Current Floor: {CurrentFloor}, " +
                               $"Direction: {Direction}, Current Weight (kg): {WeightCount}, Max Weight Limit (kg): {maxWeightLimitInKgs}");
