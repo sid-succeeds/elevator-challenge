@@ -1,4 +1,9 @@
 ﻿using dvt_elevator_challenge_solution;
+using Serilog;
+
+Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .CreateLogger();
 
 Console.WriteLine("Create a building with 10 floors");
 Building building = new Building(10);
@@ -27,4 +32,6 @@ building.CallElevator(8, typeof(GoodsElevator));
 // Display the status of all elevators
 Console.WriteLine("\nDisplaying elevator status:");
 building.DisplayAllElevatorStatus();
+
+Log.CloseAndFlush();
 

@@ -1,4 +1,6 @@
-﻿namespace dvt_elevator_challenge_solution
+﻿using Serilog;
+
+namespace dvt_elevator_challenge_solution
 {
     public class Building: IBuilding
     {
@@ -30,12 +32,12 @@
 
             if (elevatorType == typeof(PassengerElevator))
             {
-                Console.Write("Enter the number of passengers: ");
+                Log.Information("Enter the number of passengers: ");
                 int.TryParse(Console.ReadLine(), out passengerCount);
             }
             else if (elevatorType == typeof(GoodsElevator))
             {
-                Console.Write("Enter the goods weight (kg): ");
+                Log.Information("Enter the goods weight (kg): ");
                 double.TryParse(Console.ReadLine(), out goodsWeight);
             }
 
@@ -48,24 +50,24 @@
                 nearestElevator.MoveToFloor(requestedFloor, nearestElevator.speed);
                 if (elevatorType == typeof(PassengerElevator))
                 {
-                    Console.WriteLine($"Moving passenger elevator {nearestElevator.ElevatorID} to floor {requestedFloor}");
+                    Log.Information($"Moving passenger elevator {nearestElevator.ElevatorID} to floor {requestedFloor}");
                 }
                 else if (elevatorType == typeof(GoodsElevator))
                 {
-                    Console.WriteLine($"Moving goods elevator {nearestElevator.ElevatorID} to floor {requestedFloor}");
+                    Log.Information($"Moving goods elevator {nearestElevator.ElevatorID} to floor {requestedFloor}");
                 }
 
                 Load(nearestElevator, passengerCount, goodsWeight);
             }
             else
             {
-                Console.WriteLine("No available elevator found.");
+                Log.Information("No available elevator found.");
             }
         }
 
         public void DisplayAllElevatorStatus(Type elevatorType = null)
         {
-            Console.WriteLine("Elevator Status:");
+            Log.Information("Elevator Status:");
             foreach (var elevator in elevators)
             {
                 if (elevatorType == null || elevator.GetType() == elevatorType)
@@ -94,49 +96,58 @@
 
         private IElevator FindNearestElevator(int requestedFloor, Type elevatorType, double goodsWeight, int passengerCount)
         {
-            // Filter elevators based on the specified elevator type
-            List<IElevator> filteredElevators = elevators.FindAll(e => e.GetType() == elevatorType);
-
-            IElevator nearestElevator = null;
-            int shortestDistance = int.MaxValue;
-
-            foreach (var elevator in filteredElevators)
+            try
             {
-                int distance = Math.Abs(elevator.CurrentFloor - requestedFloor);
-                if (!elevator.IsMoving || elevator.Direction == ElevatorDirection.Stationary)
+                // Filter elevators based on the specified elevator type
+                List<IElevator> filteredElevators = elevators.FindAll(e => e.GetType() == elevatorType);
+
+                IElevator nearestElevator = null;
+                int shortestDistance = int.MaxValue;
+
+                foreach (var elevator in filteredElevators)
                 {
-                    if (elevator is PassengerElevator)
+                    int distance = Math.Abs(elevator.CurrentFloor - requestedFloor);
+                    if (!elevator.IsMoving || elevator.Direction == ElevatorDirection.Stationary)
                     {
-                        PassengerElevator passengerElevator = (PassengerElevator)elevator;
-                        if (passengerElevator.PassengerCount + passengerCount <= passengerElevator.MaxPassengerLimit)
+                        if (elevator is PassengerElevator)
                         {
-                            // Update nearest elevator if it's closer to the requested floor
-                            if (distance < shortestDistance)
+                            PassengerElevator passengerElevator = (PassengerElevator)elevator;
+                            if (passengerElevator.PassengerCount + passengerCount <= passengerElevator.MaxPassengerLimit)
                             {
-                                shortestDistance = distance;
-                                nearestElevator = elevator;
+                                // Update nearest elevator if it's closer to the requested floor
+                                if (distance < shortestDistance)
+                                {
+                                    shortestDistance = distance;
+                                    nearestElevator = elevator;
+                                }
                             }
                         }
-                    }
-                    else if (elevator is GoodsElevator)
-                    {
-                        GoodsElevator goodsElevator = (GoodsElevator)elevator;
-                        if (goodsElevator.WeightCount + goodsWeight <= goodsElevator.maxWeightLimitInKgs)
+                        else if (elevator is GoodsElevator)
                         {
-                            // Update nearest elevator if it's closer to the requested floor
-                            if (distance < shortestDistance)
+                            GoodsElevator goodsElevator = (GoodsElevator)elevator;
+                            if (goodsElevator.WeightCount + goodsWeight <= goodsElevator.maxWeightLimitInKgs)
                             {
-                                shortestDistance = distance;
-                                nearestElevator = elevator;
+                                // Update nearest elevator if it's closer to the requested floor
+                                if (distance < shortestDistance)
+                                {
+                                    shortestDistance = distance;
+                                    nearestElevator = elevator;
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            return nearestElevator;
+                return nearestElevator;
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Error in FindNearestElevator: {ex.Message}");
+                return null; // Return null to indicate failure
+            }
         }
 
-        
+
+
     }
 }

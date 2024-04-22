@@ -1,4 +1,6 @@
 ﻿using System;
+using Serilog;
+
 namespace dvt_elevator_challenge_solution
 {
     public class GoodsElevator : IElevator
@@ -24,26 +26,26 @@ namespace dvt_elevator_challenge_solution
             // Only load goods onto the elevator if the weight does not exceed the maximum weight limit
             if (weightInKgs <= maxWeightLimitInKgs)
             {
-                Console.WriteLine($"Loading {weightInKgs} kilogram units of goods into goods elevator {ElevatorID}");
+                Log.Information($"Loading {weightInKgs} kilogram units of goods into goods elevator {ElevatorID}");
                 WeightCount += weightInKgs;
             }
             else
             {
-                Console.WriteLine("Cannot load goods. Maximum weight limit exceeded.");
+                Log.Error("Cannot load goods. Maximum weight limit exceeded.");
             }
         }
 
         public void Unload()
         {
             // Implementation specific to goods elevators
-            Console.WriteLine($"Unloading {WeightCount} kilogram units of goods from the goods elevator {ElevatorID}");
+            Log.Information($"Unloading {WeightCount} kilogram units of goods from the goods elevator {ElevatorID}");
             WeightCount = 0;
-            Console.WriteLine("Unloaded");
+            Log.Information("Unloaded");
         }
 
         public void DisplayStatus()
         {
-            Console.WriteLine($"Elevator ID: {ElevatorID}, Current Floor: {CurrentFloor}, " +
+            Log.Information($"Elevator ID: {ElevatorID}, Current Floor: {CurrentFloor}, " +
                               $"Direction: {Direction}, Current Weight (kg): {WeightCount}, Max Weight Limit (kg): {maxWeightLimitInKgs}");
         }
     }

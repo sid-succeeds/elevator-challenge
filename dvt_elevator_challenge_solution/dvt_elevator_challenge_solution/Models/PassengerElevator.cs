@@ -1,4 +1,6 @@
 ﻿using System;
+using Serilog;
+
 namespace dvt_elevator_challenge_solution
 {
     public class PassengerElevator : IElevator
@@ -24,12 +26,12 @@ namespace dvt_elevator_challenge_solution
             // Only load passengers onto the elevator if the count does not exceed the maximum passenger limit
             if (PassengerCount + passengerCount <= MaxPassengerLimit)
             {
-                Console.WriteLine($"Loading {passengerCount} passengers into passenger elevator {ElevatorID}");
+                Log.Information($"Loading {passengerCount} passengers into passenger elevator {ElevatorID}");
                 PassengerCount += passengerCount;
             }
             else
             {
-                throw new InvalidOperationException("Cannot load passengers. Elevator is at full capacity.");
+                Log.Error("Cannot load passengers. Elevator is at full capacity.");
             }
         }
 
@@ -37,14 +39,14 @@ namespace dvt_elevator_challenge_solution
         {
             // Implementation specific to passenger elevators
             // Assumed that ALL passengers will be unloaded on Unload
-            Console.WriteLine($"Unloading {PassengerCount} passengers from passenger elevator {ElevatorID}");
+            Log.Information($"Unloading {PassengerCount} passengers from passenger elevator {ElevatorID}");
             PassengerCount = 0;
-            Console.WriteLine("Unloaded");
+            Log.Information("Unloaded");
         }
 
         public void DisplayStatus()
         {
-            Console.WriteLine($"Elevator ID: {ElevatorID}, Current Floor: {CurrentFloor}, " +
+            Log.Information($"Elevator ID: {ElevatorID}, Current Floor: {CurrentFloor}, " +
                               $"Direction: {Direction}, Passenger Count: {PassengerCount}, Max Passenger Limit: {MaxPassengerLimit}");
         }
     }
