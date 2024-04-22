@@ -36,6 +36,7 @@ namespace dvt_elevator_challenge_solution
         public void Unload()
         {
             // Implementation specific to passenger elevators
+            // Assumed that ALL passengers will be unloaded on Unload
             Console.WriteLine($"Unloading {PassengerCount} passengers from passenger elevator {ElevatorID}");
             PassengerCount = 0;
             Console.WriteLine("Unloaded");

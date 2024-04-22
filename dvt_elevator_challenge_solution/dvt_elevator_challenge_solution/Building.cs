@@ -2,16 +2,16 @@
 {
     public class Building
     {
-        private List<Elevator> elevators;
+        private List<IElevator> elevators;
         private int totalFloors;
 
         public Building(int numberOfFloors)
         {
             totalFloors = numberOfFloors;
-            elevators = new List<Elevator>();
+            elevators = new List<IElevator>();
         }
 
-        public void AddElevator(Elevator elevator)
+        public void AddElevator(IElevator elevator)
         {
             elevators.Add(elevator);
         }
@@ -34,7 +34,7 @@
             }
 
             // Find the nearest elevator of the specified type
-            Elevator nearestElevator = FindNearestElevator(requestedFloor, elevatorType, goodsWeight, passengerCount);
+            IElevator nearestElevator = FindNearestElevator(requestedFloor, elevatorType, goodsWeight, passengerCount);
 
             // Move the nearest elevator to the requested floor and handle loading
             if (nearestElevator != null)
@@ -69,29 +69,29 @@
             }
         }
 
-        private void Load(Elevator elevator, int passengerCount, double goodsWeight)
+        private void Load(IElevator elevator, int passengerCount, double goodsWeight)
         {
             if (elevator is PassengerElevator)
             {
-                elevator.Load(passengerCount);
+                ((PassengerElevator)elevator).Load(passengerCount);
             }
             else if (elevator is GoodsElevator)
             {
-                elevator.Load(goodsWeight);
+                ((GoodsElevator)elevator).Load(goodsWeight);
             }
         }
 
-        private void Unload(Elevator elevator)
+        private void Unload(IElevator elevator)
         {
             elevator.Unload();
         }
 
-        private Elevator FindNearestElevator(int requestedFloor, Type elevatorType, double goodsWeight, int passengerCount)
+        private IElevator FindNearestElevator(int requestedFloor, Type elevatorType, double goodsWeight, int passengerCount)
         {
             // Filter elevators based on the specified elevator type
-            List<Elevator> filteredElevators = elevators.FindAll(e => e.GetType() == elevatorType);
+            List<IElevator> filteredElevators = elevators.FindAll(e => e.GetType() == elevatorType);
 
-            Elevator nearestElevator = null;
+            IElevator nearestElevator = null;
             int shortestDistance = int.MaxValue;
 
             foreach (var elevator in filteredElevators)
