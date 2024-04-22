@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "fuzAjUpj2tF1pGpcyymNRRC+kO1d5bhkbCajy7wMsbiNqzBCg7dndGQB0PK7VsAZgdYClTixnEDUtX6jQWaSrQ==",
+  "dgSpecHash": "qhD3XCmXkJSQUrdbcd733pTVtwMubaqSBK7PVcRNrOwETTo8lYi5KHThc5O8HMGJi0CBMT3OMlFqKbfQBT5osg==",
   "success": true,
   "projectFilePath": "/Users/justemandleni/Desktop/elevator-challenge/dvt_elevator_challenge_solution/dvt_elevator_challenge_solution/dvt_elevator_challenge_solution.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/justemandleni/.nuget/packages/serilog/3.1.1/serilog.3.1.1.nupkg.sha512",
+    "/Users/justemandleni/.nuget/packages/serilog.sinks.console/5.0.1/serilog.sinks.console.5.0.1.nupkg.sha512"
+  ],
   "logs": []
 }
