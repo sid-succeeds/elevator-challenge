@@ -16,6 +16,7 @@ namespace dvt_elevator_challenge_solution
 
         public PassengerElevator(int maxPassengerLimit, int elevatorID)
         {
+            ElevatorID = elevatorID;
             MaxPassengerLimit = maxPassengerLimit;
             PassengerCount = 0;
             speed = 100; // Setting a default speed for PassengerElevator

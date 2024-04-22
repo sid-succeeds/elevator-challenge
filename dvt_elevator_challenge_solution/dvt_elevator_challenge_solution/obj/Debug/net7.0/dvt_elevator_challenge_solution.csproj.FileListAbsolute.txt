@@ -13,3 +13,6 @@
 /Users/justemandleni/Desktop/elevator-challenge/dvt_elevator_challenge_solution/dvt_elevator_challenge_solution/obj/Debug/net7.0/dvt_elevator_challenge_solution.pdb
 /Users/justemandleni/Desktop/elevator-challenge/dvt_elevator_challenge_solution/dvt_elevator_challenge_solution/obj/Debug/net7.0/dvt_elevator_challenge_solution.genruntimeconfig.cache
 /Users/justemandleni/Desktop/elevator-challenge/dvt_elevator_challenge_solution/dvt_elevator_challenge_solution/obj/Debug/net7.0/ref/dvt_elevator_challenge_solution.dll
+/Users/justemandleni/Desktop/elevator-challenge/dvt_elevator_challenge_solution/dvt_elevator_challenge_solution/bin/Debug/net7.0/Serilog.dll
+/Users/justemandleni/Desktop/elevator-challenge/dvt_elevator_challenge_solution/dvt_elevator_challenge_solution/bin/Debug/net7.0/Serilog.Sinks.Console.dll
+/Users/justemandleni/Desktop/elevator-challenge/dvt_elevator_challenge_solution/dvt_elevator_challenge_solution/obj/Debug/net7.0/dvt_elevator_challenge_solution.csproj.CopyComplete
