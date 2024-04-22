@@ -1,6 +1,6 @@
 ﻿namespace dvt_elevator_challenge_solution
 {
-    public class Building
+    public class Building: IBuilding
     {
         private List<IElevator> elevators;
         private int totalFloors;
@@ -9,6 +9,12 @@
         {
             totalFloors = numberOfFloors;
             elevators = new List<IElevator>();
+        }
+
+        public Building(int numberOfFloors, IEnumerable<IElevator> initialElevators)
+        {
+            totalFloors = numberOfFloors;
+            elevators = new List<IElevator>(initialElevators);
         }
 
         public void AddElevator(IElevator elevator)
